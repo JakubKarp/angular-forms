@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form
-        (ngSubmit)='onSubmit(f)'
-        #f='ngForm'
-      >
-        
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
@@ -31,12 +27,16 @@
               name="email"
               required
               email
-              #email='ngModel'
+              #email="ngModel"
             />
-            <span class='hekp-block' *ngIf='!email.valid && email.touched'>Please enter a valid value!</span>
+            <span class="hekp-block" *ngIf="!email.valid && email.touched"
+              >Please enter a valid value!</span
+            >
           </div>
         </div>
-        <p *ngIf="!userData.valid && userData.touched" >User Data is not Valid</p>
+        <p *ngIf="!userData.valid && userData.touched">
+          User Data is not Valid
+        </p>
 
         <div class="form-group">
           <label for="secret">Secret Questions</label>
@@ -44,40 +44,43 @@
             id="secret"
             class="form-control"
             [ngModel]="defaultSelectValue"
-            name="secret">
+            name="secret"
+          >
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
         <div class="form-group">
-          <textarea 
+          <textarea
             name="questionAnswer"
             class="form-control"
             rows="3"
             [(ngModel)]="answer"
           >
-        </textarea>
-      </div>
-        <p>Your replay: {{answer}}</p>
+          </textarea>
+        </div>
+        <p>Your replay: {{ answer }}</p>
 
         <div class="radio" *ngFor="let gender of genders">
           <label for="">
-            <input 
-              type="radio"
-              name="gender"
-              ngModel
-              [value]="gender"
-            >{{gender}}
+            <input type="radio" name="gender" ngModel [value]="gender" />{{
+              gender
+            }}
           </label>
         </div>
-        
 
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]='!f.valid'
-          >Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+          Submit
+        </button>
       </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="isSubmited">
+    <div class="col-xs-12">
+      <div>{{user.name | uppercase }}</div>
+      <div>{{user.email | shortenMyName:10 }}</div>
+      <h2>Status: {{updated | async }} </h2>
     </div>
   </div>
 </div>
